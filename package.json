@@ -2,7 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.js",
+  "main": "server.js",
   "scripts": {
     "client": "npm run start ---prefix ./client",
     "server": "nodemon ./src/index.js",

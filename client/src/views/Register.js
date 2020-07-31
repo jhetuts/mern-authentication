@@ -5,8 +5,6 @@ import { useForm } from "react-hook-form";
 import { registerUser } from "../actions/authAction";
 import ErrorText from "../components/common/ErrorText";
 
-import isEmpty from "../validations/isEmpty";
-
 const Register = (props) => {
   const [message, setMessage] = useState("");
   const { register, handleSubmit } = useForm();

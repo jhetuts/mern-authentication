@@ -7,8 +7,8 @@ const path = require("path");
 
 require("dotenv").config();
 
-const { notFound } = require("./middlewares");
-const router = require("./api/users");
+const { notFound } = require("./src/middlewares/");
+const router = require("./src/api/users");
 
 mongoose
   .connect(process.env.MONGODB_URI_PROD, {
@@ -28,7 +28,7 @@ app.use(
 
 app.use(passport.initialize());
 
-require("./config/passport")(passport);
+require("./src/config/passport")(passport);
 
 app.use(helmet());
 app.use(express.json());
@@ -46,9 +46,9 @@ app.use(notFound);
 
 // Serve static assets once in prod
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("../client/build"));
+  app.use(express.static("client/build"));
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
 
