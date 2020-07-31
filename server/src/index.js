@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const passport = require("passport");
 const cors = require("cors");
 const helmet = require("helmet");
+const path = require("path");
 
 require("dotenv").config();
 
@@ -10,7 +11,7 @@ const { notFound } = require("./middlewares");
 const router = require("./api/users");
 
 mongoose
-  .connect(process.env.MONGODB_URI_DEV, {
+  .connect(process.env.MONGODB_URI_PROD, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -42,6 +43,16 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", router);
 app.use(notFound);
+
+// Serve static assets once in prod
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("../../client/build"));
+  app.get("*", (req, res) => {
+    res.sendFile(
+      path.resolve(__dirname, "../../client", "build", "index.html")
+    );
+  });
+}
 
 const port = process.env.PORT || 1000;
 app.listen(port, () => {
