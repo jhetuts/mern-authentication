@@ -6,7 +6,7 @@ const helmet = require("helmet");
 
 require("dotenv").config();
 
-const { notFound, errorHandler } = require("./middlewares");
+const { notFound } = require("./middlewares");
 const router = require("./api/users");
 
 mongoose
@@ -36,13 +36,12 @@ app.get("/", (req, res) => {
   res.json({
     message: `Available api:
     - /api/auth/register
-    - /api/auth/register`,
+    - /api/auth/login`,
   });
 });
 
 app.use("/api/auth", router);
 app.use(notFound);
-app.use(errorHandler);
 
 const port = process.env.PORT || 1000;
 app.listen(port, () => {

@@ -11,8 +11,114 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
+ul,
+li {
+  list-style: none;
+}
 * {
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
+}
+.App {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: auto;
+}
+header,
+main,
+footer {
+  width: 100%;
+}
+header {
+  display: grid;
+  padding: 10px;
+  box-sizing: border-box;
+  grid-template-columns: 1fr 1fr;
+}
+header nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+nav ul {
+  display: flex;
+}
+ul li a {
+  padding: 10px;
+  text-decoration: none;
+  color: #2c2c2c;
+}
+
+footer {
+  padding: 10px;
+  text-align: center;
+}
+.Register {
+  max-width: 400px;
+  margin: 0 auto;
+}
+.Register h2 {
+  text-align: center;
+}
+.Register form {
+  display: flex;
+  flex-direction: column;
+}
+.Register label,
+.Register input {
+  margin-bottom: 5px;
+}
+
+.Login {
+  max-width: 400px;
+  margin: 0 auto;
+}
+.Login h2 {
+  text-align: center;
+}
+.Login form {
+  display: flex;
+  flex-direction: column;
+}
+.Login label,
+.Login input {
+  margin-bottom: 5px;
+}
+.Register input,
+.Login input {
+  padding: 5px 0;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #2c2c2c;
+}
+.Register button,
+.Login button {
+  margin-top: 10px;
+  padding: 10px;
+  outline: none;
+  cursor: pointer;
+  border: none;
+}
+
+.error-text {
+  color: #dc4545;
+  font-size: 12px;
+  padding: 5px 0;
+}
+input.input-error {
+  border: 1px solid #dc4545;
+}
+
+.Dashboard {
+  text-align: center;
+}
+
+.successful {
+  text-align: center;
+  color: green;
 }

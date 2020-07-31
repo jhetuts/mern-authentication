@@ -12,24 +12,18 @@ const User = require("../models/UserSchema");
 const router = new Router();
 
 //Register
-router.post("/register", (req, res, next) => {
+router.post("/register", (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
   console.log(errors, isValid);
 
   if (!isValid) {
-    res.status(400);
-    return next({
-      message: errors,
-    });
+    return res.status(400).json(errors);
   }
 
   User.findOne({ email: req.body.email }).then((user) => {
     if (user) {
       errors.email = "Email is already exist";
-      res.status(400);
-      return next({
-        message: errors,
-      });
+      return res.status(409).json(errors);
     } else {
       const newUser = new User({
         name: req.body.name,
@@ -39,17 +33,15 @@ router.post("/register", (req, res, next) => {
 
       bcrypt.genSalt(10, (err, salt) => {
         if (err) {
-          res.status(500);
-          return next({
-            message: err,
+          return res.status(500).json({
+            error: err,
           });
         }
 
         bcrypt.hash(newUser.password, salt, (err, hash) => {
           if (err) {
-            res.status(500);
-            return next({
-              message: err,
+            return res.status(500).json({
+              error: err,
             });
           }
 
@@ -58,9 +50,8 @@ router.post("/register", (req, res, next) => {
             .save()
             .then((user) => res.status(200).json(user))
             .catch((error) => {
-              res.status(500);
-              return next({
-                message: error,
+              return res.status(500).json({
+                error: error,
               });
             });
         });
@@ -70,14 +61,11 @@ router.post("/register", (req, res, next) => {
 });
 
 //Login
-router.post("/login", (req, res, next) => {
+router.post("/login", (req, res) => {
   const { errors, isValid } = validateLoginInput(req.body);
 
   if (!isValid) {
-    res.status(400);
-    return next({
-      message: errors,
-    });
+    return res.status(400).json(errors);
   }
 
   const { email, password } = req.body;
@@ -85,10 +73,7 @@ router.post("/login", (req, res, next) => {
   User.findOne({ email }).then((user) => {
     if (!user) {
       errors.email = "User not found";
-      res.status(400);
-      return next({
-        message: errors,
-      });
+      return res.status(400).json(errors);
     }
 
     bcrypt.compare(password, user.password).then((isMatch) => {
@@ -105,10 +90,7 @@ router.post("/login", (req, res, next) => {
           { expiresIn: 3600 },
           (err, token) => {
             if (err) {
-              res.status(500);
-              return next({
-                message: err,
-              });
+              return res.status(500).json(err);
             }
             res.json({
               message: "Success",
@@ -118,10 +100,7 @@ router.post("/login", (req, res, next) => {
         );
       } else {
         errors.password = "Password is incorrect";
-        res.status(400);
-        return next({
-          message: errors,
-        });
+        return res.status(409).json(errors);
       }
     });
   });
