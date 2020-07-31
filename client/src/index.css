@@ -104,6 +104,11 @@ footer {
   cursor: pointer;
   border: none;
 }
+.Register p,
+.Login p {
+  padding: 10px;
+  text-align: center;
+}
 
 .error-text {
   color: #dc4545;

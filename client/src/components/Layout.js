@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  Switch,
+} from "react-router-dom";
 
 // Components
 import Login from "../views/Login";
@@ -16,8 +21,12 @@ const Layout = () => {
         <Navbar />
       </header>
       <main>
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/register" component={Register} />
+        <Switch>
+          <Route exact path="/" component={Login} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
+        </Switch>
+
         <PrivateRoute exact path="/dashboard" component={Dashboard} />
       </main>
       <footer>&copy; 2020</footer>

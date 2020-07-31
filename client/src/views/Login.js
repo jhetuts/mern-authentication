@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { loginUser, setRegistered } from "../actions/authAction";
 
@@ -43,6 +43,9 @@ const Login = (props) => {
         {props.errors.password && <ErrorText message={props.errors.password} />}
         <button>Submit</button>
       </form>
+      <p>
+        Doesn't have an account yet? Register <Link to="/register">here</Link>.
+      </p>
     </div>
   );
 };

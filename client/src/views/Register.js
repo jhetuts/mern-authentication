@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { registerUser } from "../actions/authAction";
 import ErrorText from "../components/common/ErrorText";
@@ -75,6 +75,9 @@ const Register = (props) => {
         )}
         <button>Submit</button>
       </form>
+      <p>
+        Already have an account? Login <Link to="/login">here</Link>.
+      </p>
       {message}
     </div>
   );
