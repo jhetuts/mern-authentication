@@ -7,7 +7,6 @@ const path = require("path");
 
 require("dotenv").config();
 
-const { notFound } = require("./src/middlewares/");
 const router = require("./src/api/users");
 
 mongoose
@@ -34,7 +33,6 @@ app.use(helmet());
 app.use(express.json());
 
 app.use("/api/auth", router);
-app.use(notFound);
 
 // Server static assets if in production
 if (process.env.NODE_ENV === "production") {
