@@ -33,14 +33,6 @@ require("./src/config/passport")(passport);
 app.use(helmet());
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.json({
-    message: `Available api:
-    - /api/auth/register
-    - /api/auth/login`,
-  });
-});
-
 app.use("/api/auth", router);
 app.use(notFound);
 
